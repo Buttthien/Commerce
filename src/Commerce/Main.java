@@ -32,7 +32,10 @@ public class Main {
 
     public static void main(String[] args) {
        
-    
+    // FrameMain
+    // FrameMain app = new FrameMain():
+    // app.setVisibile(true);
+        
     AccountSignIn signin = new AccountSignIn();
     signin.setVisible(true);
 }

@@ -52,17 +52,14 @@
               <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
               <Component id="sortLabel" min="-2" pref="89" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="maxLabel" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="minLabel" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="maxLabel" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="maxPrice" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="minLabel" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="minPrice" min="-2" pref="108" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="maxPrice" pref="108" max="32767" attributes="0"/>
+                  <Component id="minPrice" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="searchLabel" min="-2" pref="111" max="-2" attributes="0"/>
@@ -80,10 +77,17 @@
                       <EmptySpace min="-2" pref="403" max="-2" attributes="0"/>
                       <Component id="mainLabel" min="-2" pref="192" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+<<<<<<< HEAD
                       <Component id="loginBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="signinBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+=======
+                      <Component id="signinBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="signupBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+>>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
                       <Component id="logoutBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -107,13 +111,22 @@
                       <Component id="usernameField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
+<<<<<<< HEAD
                           <Component id="loginBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="signinBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+=======
+                          <Component id="signinBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="signupBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+>>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
                           <Component id="logoutBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
+<<<<<<< HEAD
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+=======
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+>>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -141,7 +154,7 @@
                       <Component id="sortLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="269" max="-2" attributes="0"/>
               <EmptySpace pref="77" max="32767" attributes="0"/>
           </Group>
@@ -213,16 +226,6 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="minPrice">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="minPriceActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
-        <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JLabel" name="maxLabel">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
@@ -239,20 +242,20 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maxPriceActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="signinBtn">
+    <Component class="javax.swing.JButton" name="signupBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="SIGN UP"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signinBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signupBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="loginBtn">
+    <Component class="javax.swing.JButton" name="signinBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="SIGN IN"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signinBtnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
@@ -301,6 +304,10 @@
     </Component>
     <Component class="javax.swing.JTextField" name="usernameField">
       <Properties>
+<<<<<<< HEAD
+=======
+        <Property name="horizontalAlignment" type="int" value="0"/>
+>>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
         <Property name="text" type="java.lang.String" value="Username" postCode="usernameField.setEditable(false);"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
@@ -310,5 +317,10 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameFieldActionPerformed"/>
       </Events>
     </Component>
+<<<<<<< HEAD
+=======
+    <Component class="javax.swing.JTextField" name="minPrice">
+    </Component>
+>>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
   </SubComponents>
 </Form>

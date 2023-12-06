@@ -31,10 +31,16 @@ public class Main {
     */
 
     public static void main(String[] args) {
+<<<<<<< HEAD
         
 //        productFrm frm = new productFrm();
 //        frm.setVisible(true);
 //    AccountSignIn signin = new AccountSignIn();
 //    signin.setVisible(true);
 }
+=======
+        productFrm frm = new productFrm();
+        frm.setVisible(true);
+    }
+>>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
 }

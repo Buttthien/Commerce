@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Commerce;
-
+import java.awt.event.*;
 import java.sql.*;
+
+
 /**
  *
  * @author Khoi
@@ -20,9 +22,8 @@ public class productFrm extends javax.swing.JFrame {
         initComponents();
         connect();
     }
-    
-    private void connect() {
-        String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa";
+    private void connect(){
+    String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa";
         try {conn = DriverManager.getConnection(dbURL);
         if (conn != null){
             System.out.println("Database connected");
@@ -31,7 +32,6 @@ public class productFrm extends javax.swing.JFrame {
             productDisplay.setText(e.getMessage());
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,10 +48,11 @@ public class productFrm extends javax.swing.JFrame {
         productLabel = new javax.swing.JLabel();
         sortLabel = new javax.swing.JLabel();
         minLabel = new javax.swing.JLabel();
+        minPrice = new javax.swing.JTextField();
         maxLabel = new javax.swing.JLabel();
         maxPrice = new javax.swing.JTextField();
-        signupBtn = new javax.swing.JButton();
         signinBtn = new javax.swing.JButton();
+        loginBtn = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         searchLabel = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
@@ -59,10 +60,6 @@ public class productFrm extends javax.swing.JFrame {
         productDisplay = new javax.swing.JTextArea();
         logoutBtn = new javax.swing.JButton();
         usernameField = new javax.swing.JTextField();
-<<<<<<< HEAD
-=======
-        minPrice = new javax.swing.JTextField();
->>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -96,6 +93,17 @@ public class productFrm extends javax.swing.JFrame {
         minLabel.setText("Min");
         minLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        minPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minPriceActionPerformed(evt);
+            }
+        });
+        minPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                minPriceKeyTyped(evt);
+            }
+        });
+
         maxLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         maxLabel.setText("Max");
         maxLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -105,23 +113,23 @@ public class productFrm extends javax.swing.JFrame {
                 maxPriceActionPerformed(evt);
             }
         });
-
-        signupBtn.setText("SIGN UP");
-        signupBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signupBtnActionPerformed(evt);
+        maxPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                maxPriceKeyTyped(evt);
             }
         });
 
-<<<<<<< HEAD
-        loginBtn.setText("SIGN IN");
-        loginBtn.addActionListener(new java.awt.event.ActionListener() {
-=======
-        signinBtn.setText("SIGN IN");
+        signinBtn.setText("SIGN UP");
         signinBtn.addActionListener(new java.awt.event.ActionListener() {
->>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signinBtnActionPerformed(evt);
+            }
+        });
+
+        loginBtn.setText("SIGN IN");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
             }
         });
 
@@ -130,12 +138,22 @@ public class productFrm extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         searchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         searchLabel.setText("Product Searching");
         searchLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         searchBtn.setText("Search");
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
 
         productDisplay.setColumns(20);
         productDisplay.setRows(5);
@@ -148,10 +166,6 @@ public class productFrm extends javax.swing.JFrame {
             }
         });
 
-<<<<<<< HEAD
-=======
-        usernameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
->>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
         usernameField.setText("Username");
         usernameField.setEditable(false);
         usernameField.setBorder(null);
@@ -173,13 +187,15 @@ public class productFrm extends javax.swing.JFrame {
                 .addGap(90, 90, 90)
                 .addComponent(sortLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(minLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(maxPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                    .addComponent(minPrice))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(maxPrice))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(minLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(minPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(searchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -195,17 +211,10 @@ public class productFrm extends javax.swing.JFrame {
                         .addGap(403, 403, 403)
                         .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-<<<<<<< HEAD
                         .addComponent(loginBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(signinBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-=======
-                        .addComponent(signinBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(signupBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
->>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
                         .addComponent(logoutBtn))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -223,17 +232,10 @@ public class productFrm extends javax.swing.JFrame {
                         .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-<<<<<<< HEAD
                             .addComponent(loginBtn)
                             .addComponent(signinBtn)
                             .addComponent(logoutBtn))))
                 .addGap(35, 35, 35)
-=======
-                            .addComponent(signinBtn)
-                            .addComponent(signupBtn)
-                            .addComponent(logoutBtn))))
-                .addGap(33, 33, 33)
->>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -254,7 +256,7 @@ public class productFrm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(sortLabel)))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(77, Short.MAX_VALUE))
         );
@@ -270,17 +272,17 @@ public class productFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_maxPriceActionPerformed
 
-    private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
-        // TODO add your handling code here:
-        AccountSignUp signup = new AccountSignUp();
-        signup.setVisible(true);
-    }//GEN-LAST:event_signupBtnActionPerformed
+    private void minPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minPriceActionPerformed
+       // TODO add your handling code here:
+    }//GEN-LAST:event_minPriceActionPerformed
 
     private void signinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinBtnActionPerformed
         // TODO add your handling code here:
-        AccountSignIn signin = new AccountSignIn();
-        signin.setVisible(true);
     }//GEN-LAST:event_signinBtnActionPerformed
+
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginBtnActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -293,6 +295,411 @@ public class productFrm extends javax.swing.JFrame {
     private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameFieldActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+     // TODO add your handling code here:
+     //get text from search bar and write sql query, if null then false
+        String tmp = jTextField1.getText();
+        if(tmp.length() != 0){
+            if(minPrice.getText().isEmpty() && maxPrice.getText().isEmpty()){
+                try{
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Name like '%"+tmp+"%'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+            if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){
+                try{
+            int value2 = Integer.parseInt(maxPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price <= "+value2+" and Name like '%"+tmp+"%'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+            if(minPrice.getText().length() > 0 && maxPrice.getText().isEmpty()){
+                try{
+            int value1 = Integer.parseInt(minPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price >= "+value1+" and Name like '%"+tmp+"%'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+            if(minPrice.getText().length() > 0 && maxPrice.getText().length() > 0) {
+                try{
+            int value1 = Integer.parseInt(minPrice.getText());
+            int value2 = Integer.parseInt(maxPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price between '"+value1+"' and '"+value2+"' and Name like '%"+tmp+"%'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+        }
+        if(tmp.isEmpty()){
+            if(minPrice.getText().length() > 0 && maxPrice.getText().length() > 0){
+                try{
+            int value1 = Integer.parseInt(minPrice.getText());
+            int value2 = Integer.parseInt(maxPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price between '"+value1+"' and '"+value2+"'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+            if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){
+                try{
+            int value2 = Integer.parseInt(maxPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price <= '"+value2+"'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }   
+            if(minPrice.getText().length() > 0 && maxPrice.getText().isEmpty()){
+                try{
+            int value1 = Integer.parseInt(minPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price >= '"+value1+"'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+        }
+    }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void minPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_minPriceKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_minPriceKeyTyped
+
+    private void maxPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_maxPriceKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_maxPriceKeyTyped
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        String tmp = jTextField1.getText();
+        if(tmp.length() != 0){
+            if(minPrice.getText().isEmpty() && maxPrice.getText().isEmpty()){
+                try{
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Name like '%"+tmp+"%'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+            if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){
+                try{
+            int value2 = Integer.parseInt(maxPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price <= "+value2+" and Name like '%"+tmp+"%'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+            if(minPrice.getText().length() > 0 && maxPrice.getText().isEmpty()){
+                try{
+            int value1 = Integer.parseInt(minPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price >= "+value1+" and Name like '%"+tmp+"%'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+            if(minPrice.getText().length() > 0 && maxPrice.getText().length() > 0) {
+                try{
+            int value1 = Integer.parseInt(minPrice.getText());
+            int value2 = Integer.parseInt(maxPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price between '"+value1+"' and '"+value2+"' and Name like '%"+tmp+"%'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+        }
+        if(tmp.isEmpty()){
+            if(minPrice.getText().length() > 0 && maxPrice.getText().length() > 0){
+                try{
+            int value1 = Integer.parseInt(minPrice.getText());
+            int value2 = Integer.parseInt(maxPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price between '"+value1+"' and '"+value2+"'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+            if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){
+                try{
+            int value2 = Integer.parseInt(maxPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price <= '"+value2+"'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }   
+            if(minPrice.getText().length() > 0 && maxPrice.getText().isEmpty()){
+                try{
+            int value1 = Integer.parseInt(minPrice.getText());
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price >= '"+value1+"'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            for (int i = 1; i <= numberOfColumns; i++) {
+                results.append(metaData.getColumnName(i)).append("\t");
+            }
+            results.append("\n");
+            //  Metadata
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    results.append(rs.getObject(i)).append("\t");
+                }
+                results.append("\n");
+            }
+            productDisplay.setText(results.toString());
+        } // Handle any errors that may have occurred.
+            catch (SQLException e) {            
+                productDisplay.setText(e.getMessage());
+            }
+            }
+        }
+//        if(tmp == null && minPrice.getText() == null && maxPrice.getText() == null){
+//            //No options provided -> Nothing happen
+//        }
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -320,7 +727,6 @@ public class productFrm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(productFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -328,17 +734,13 @@ public class productFrm extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-<<<<<<< HEAD
     private javax.swing.JButton loginBtn;
-=======
->>>>>>> a25e13aa1927624e4efa2fdea92b733f01b29dba
     private javax.swing.JButton logoutBtn;
     private javax.swing.JLabel mainLabel;
     private javax.swing.JLabel maxLabel;
@@ -350,8 +752,8 @@ public class productFrm extends javax.swing.JFrame {
     private javax.swing.JButton searchBtn;
     private javax.swing.JLabel searchLabel;
     private javax.swing.JButton signinBtn;
-    private javax.swing.JButton signupBtn;
     private javax.swing.JLabel sortLabel;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
+
 }

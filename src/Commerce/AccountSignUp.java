@@ -52,6 +52,8 @@ public class AccountSignUp extends javax.swing.JFrame {
         jTextField10 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1060, 800));
+        setResizable(false);
 
         jTextField1.setEditable(false);
         jTextField1.setText("Username");

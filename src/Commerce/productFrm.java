@@ -166,6 +166,7 @@ public class productFrm extends javax.swing.JFrame {
             }
         });
 
+        usernameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         usernameField.setText("Username");
         usernameField.setEditable(false);
         usernameField.setBorder(null);

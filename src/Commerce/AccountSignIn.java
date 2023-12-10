@@ -158,6 +158,7 @@ public class AccountSignIn extends javax.swing.JFrame {
         pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1070, 800));
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -322,6 +323,7 @@ public class AccountSignIn extends javax.swing.JFrame {
             Main.Status_Username_ON = true;
             
             Main.USERNAME_STATEMENT = "User:" + userTMP;
+            Main.user = userTMP;
             System.out.println(Main.USERNAME_STATEMENT);
             //productFrm.usernameSTATUS.setText( Main.USERNAME_STATEMENT);
             JOptionPane.showMessageDialog(null, "Sign in succeceed!", "Message", JOptionPane.INFORMATION_MESSAGE);        

@@ -26,6 +26,7 @@ public class Main {
     
     public static boolean Status_Username_ON = false;
     public static String USERNAME_STATEMENT = "User:";
+    public static String user ;
     /*
     public void close(){
         WindowEvent closeW = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);

@@ -739,9 +739,13 @@ public class productFrm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if(Main.Status_Username_ON == true){
         close();
         Cart j = new Cart();
         j.setVisible(true);
+        usernameSTATUS.setText(Main.USERNAME_STATEMENT);
+        }
+        usernameSTATUS.setText(Main.USERNAME_STATEMENT);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

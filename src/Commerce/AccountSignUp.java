@@ -199,14 +199,12 @@ public class AccountSignUp extends javax.swing.JFrame {
         jTextField1.setEditable(false);
         jTextField1.setText("Username");
 
-        passwordfield2.setText("jPasswordField1");
         passwordfield2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordfield2ActionPerformed(evt);
             }
         });
 
-        passwordfield1.setText("jPasswordField2");
         passwordfield1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordfield1ActionPerformed(evt);
@@ -263,7 +261,7 @@ public class AccountSignUp extends javax.swing.JFrame {
         jTextField6.setText("Password");
 
         jTextField7.setEditable(false);
-        jTextField7.setText("Input PassWord Again");
+        jTextField7.setText("Confirm Password");
 
         address.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,8 +349,8 @@ public class AccountSignUp extends javax.swing.JFrame {
                                             .addComponent(passwordfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(passwordfield2))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(passwordfield2, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -637,17 +635,17 @@ public class AccountSignUp extends javax.swing.JFrame {
                     
                     
                     
-                    JOptionPane.showMessageDialog(null, "Sign Up Completed!", "Message", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sign Up Complete!", "Message", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
             }else{
-            JOptionPane.showMessageDialog(null, "Sign Up Incompleted!", "Message", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Sign Up Incomplete!", "Message", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
                
            
         }else{
-            JOptionPane.showMessageDialog(null, "Sign Up Incompleted!", "Message", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Sign Up Incomplete!", "Message", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 

@@ -3,9 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Commerce;
-import java.awt.Toolkit;
+import java.awt.Image;
 import java.awt.event.*;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 
 /**
@@ -16,15 +19,17 @@ public class productFrm extends javax.swing.JFrame {
     Connection conn;
     ResultSet rs;
     PreparedStatement pst;
+    private int rowCount;
+    private int arrCount = 0;
+    byte[] imagedata = null;
+        public String[] ID = new String[20];
+        public String[] Quant = new String[20];
+        public String[] Name = new String[20];
+        public String[] Price = new String[20];
+        public ImageIcon[] Img = new ImageIcon[20];
     /**
      * Creates new form productFrm
      */
-    public void close(){
-        WindowEvent closeW = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeW);
-    }
-    
-    
     public productFrm() {
         initComponents();
         connect();
@@ -33,7 +38,7 @@ public class productFrm extends javax.swing.JFrame {
     String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa";
         try {conn = DriverManager.getConnection(dbURL);
         if (conn != null){
-            System.out.println("Database connected");
+            System.out.println("Database successfully connected");
         }
         } catch (SQLException e) {            
             productDisplay.setText(e.getMessage());
@@ -48,6 +53,20 @@ public class productFrm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ProductDetails_Popup = new javax.swing.JDialog();
+        BackBtn = new javax.swing.JButton();
+        ForwardBtn = new javax.swing.JButton();
+        IMG_Display = new javax.swing.JLabel();
+        ID_Display = new javax.swing.JLabel();
+        ProductID_Label = new javax.swing.JLabel();
+        Name_Display = new javax.swing.JLabel();
+        ProductName_Label = new javax.swing.JLabel();
+        Quantity_Label = new javax.swing.JLabel();
+        Quantity_Display = new javax.swing.JLabel();
+        Price_Label = new javax.swing.JLabel();
+        Price_Display = new javax.swing.JLabel();
+        AddToCartBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         mainLabel = new javax.swing.JLabel();
@@ -58,22 +77,177 @@ public class productFrm extends javax.swing.JFrame {
         minPrice = new javax.swing.JTextField();
         maxLabel = new javax.swing.JLabel();
         maxPrice = new javax.swing.JTextField();
-        signupBtn = new javax.swing.JButton();
         signinBtn = new javax.swing.JButton();
+        loginBtn = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         searchLabel = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         productDisplay = new javax.swing.JTextArea();
         logoutBtn = new javax.swing.JButton();
-        usernameSTATUS = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        usernameField = new javax.swing.JTextField();
+        Details = new javax.swing.JButton();
+
+        ProductDetails_Popup.setSize(767,516);
+        ProductDetails_Popup.setMaximumSize(new java.awt.Dimension(2000, 1800));
+        ProductDetails_Popup.setPreferredSize(new java.awt.Dimension(1310, 880));
+        ProductDetails_Popup.setSize(new java.awt.Dimension(1310, 880));
+        ProductDetails_Popup.setType(java.awt.Window.Type.POPUP);
+
+        BackBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BackBtn.setText("<<<");
+        BackBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackBtnActionPerformed(evt);
+            }
+        });
+
+        ForwardBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ForwardBtn.setText(">>>");
+        ForwardBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ForwardBtnActionPerformed(evt);
+            }
+        });
+
+        IMG_Display.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        IMG_Display.setText("Placeholder");
+        IMG_Display.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        IMG_Display.setPreferredSize(new java.awt.Dimension(1000, 600));
+
+        ID_Display.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ID_Display.setText("ID_Display");
+        ID_Display.setPreferredSize(new java.awt.Dimension(55, 40));
+
+        ProductID_Label.setBackground(new java.awt.Color(102, 204, 255));
+        ProductID_Label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ProductID_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ProductID_Label.setText("Product_ID");
+        ProductID_Label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ProductID_Label.setMinimumSize(new java.awt.Dimension(65, 60));
+        ProductID_Label.setPreferredSize(new java.awt.Dimension(65, 60));
+
+        Name_Display.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Name_Display.setText("NameDisplay");
+        Name_Display.setPreferredSize(new java.awt.Dimension(55, 40));
+
+        ProductName_Label.setBackground(new java.awt.Color(102, 204, 255));
+        ProductName_Label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ProductName_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ProductName_Label.setText("Product_Name");
+        ProductName_Label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ProductName_Label.setMinimumSize(new java.awt.Dimension(65, 60));
+        ProductName_Label.setPreferredSize(new java.awt.Dimension(65, 60));
+
+        Quantity_Label.setBackground(new java.awt.Color(102, 204, 255));
+        Quantity_Label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Quantity_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Quantity_Label.setText("In stock");
+        Quantity_Label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Quantity_Label.setMinimumSize(new java.awt.Dimension(65, 60));
+        Quantity_Label.setPreferredSize(new java.awt.Dimension(67, 60));
+
+        Quantity_Display.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Quantity_Display.setText("NumRemaining");
+        Quantity_Display.setPreferredSize(new java.awt.Dimension(55, 40));
+
+        Price_Label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Price_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Price_Label.setText("Price");
+        Price_Label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Price_Label.setMinimumSize(new java.awt.Dimension(65, 60));
+        Price_Label.setPreferredSize(new java.awt.Dimension(65, 60));
+
+        Price_Display.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Price_Display.setText("PriceDisplay");
+        Price_Display.setPreferredSize(new java.awt.Dimension(55, 40));
+
+        AddToCartBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        AddToCartBtn.setText("Add to cart");
+        AddToCartBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        AddToCartBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddToCartBtnActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton1.setText("Your cart");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ProductDetails_PopupLayout = new javax.swing.GroupLayout(ProductDetails_Popup.getContentPane());
+        ProductDetails_Popup.getContentPane().setLayout(ProductDetails_PopupLayout);
+        ProductDetails_PopupLayout.setHorizontalGroup(
+            ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ProductDetails_PopupLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(IMG_Display, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 37, Short.MAX_VALUE)
+                .addGroup(ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ProductID_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ProductName_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Quantity_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Price_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AddToCartBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(Price_Display, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addComponent(ID_Display, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Quantity_Display, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Name_Display, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(153, 153, 153))
+            .addGroup(ProductDetails_PopupLayout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(BackBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(ForwardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(262, 262, 262)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        ProductDetails_PopupLayout.setVerticalGroup(
+            ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProductDetails_PopupLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(ProductDetails_PopupLayout.createSequentialGroup()
+                        .addGroup(ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ID_Display, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProductID_Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(79, 79, 79)
+                        .addGroup(ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ProductName_Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Name_Display, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(74, 74, 74)
+                        .addGroup(ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Quantity_Display, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Quantity_Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(73, 73, 73)
+                        .addGroup(ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Price_Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Price_Display, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(132, 132, 132)
+                        .addComponent(AddToCartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(IMG_Display, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(ProductDetails_PopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ForwardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BackBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(128, Short.MAX_VALUE))
+        );
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         mainLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         mainLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -126,28 +300,31 @@ public class productFrm extends javax.swing.JFrame {
             }
         });
 
-        signupBtn.setText("SIGN UP");
-        signupBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signupBtnActionPerformed(evt);
-            }
-        });
-
-        signinBtn.setText("SIGN IN");
+        signinBtn.setText("SIGN UP");
         signinBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signinBtnActionPerformed(evt);
             }
         });
 
+        loginBtn.setText("SIGN IN");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
+            }
+        });
+
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                Search(evt);
             }
         });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                SearchBtn(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
             }
         });
 
@@ -164,6 +341,7 @@ public class productFrm extends javax.swing.JFrame {
 
         productDisplay.setColumns(20);
         productDisplay.setRows(5);
+        productDisplay.setEditable(false);
         jScrollPane1.setViewportView(productDisplay);
 
         logoutBtn.setText("LOG OUT");
@@ -173,19 +351,20 @@ public class productFrm extends javax.swing.JFrame {
             }
         });
 
-        usernameSTATUS.setEditable(false);
-        usernameSTATUS.setEditable(false);
-        usernameSTATUS.setBorder(null);
-        usernameSTATUS.addActionListener(new java.awt.event.ActionListener() {
+        usernameField.setText("Username");
+        usernameField.setEditable(false);
+        usernameField.setBorder(null);
+        usernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameSTATUSActionPerformed(evt);
+                usernameFieldActionPerformed(evt);
             }
         });
 
-        jButton1.setText("CART");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Details.setText("Details");
+        Details.setVisible(false);
+        Details.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                DetailsActionPerformed(evt);
             }
         });
 
@@ -194,48 +373,52 @@ public class productFrm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(403, 403, 403)
-                        .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(signinBtn)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(403, 403, 403)
+                                .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(loginBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(signinBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(logoutBtn))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(productLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(90, 90, 90)
+                        .addComponent(sortLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(signupBtn)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(maxPrice))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(minLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(minPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(searchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(logoutBtn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(usernameSTATUS, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchBtn)
+                        .addGap(0, 106, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(productLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(90, 90, 90)
-                .addComponent(sortLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(maxPrice))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(minLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(minPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(searchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchBtn)
-                    .addComponent(jButton1))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addComponent(Details)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,15 +428,13 @@ public class productFrm extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(usernameSTATUS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(loginBtn)
                             .addComponent(signinBtn)
-                            .addComponent(signupBtn)
-                            .addComponent(logoutBtn))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
-                .addGap(29, 29, 29)
+                            .addComponent(logoutBtn))))
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -276,7 +457,9 @@ public class productFrm extends javax.swing.JFrame {
                         .addComponent(sortLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Details)
+                .addContainerGap(325, Short.MAX_VALUE))
         );
 
         pack();
@@ -294,49 +477,33 @@ public class productFrm extends javax.swing.JFrame {
        // TODO add your handling code here:
     }//GEN-LAST:event_minPriceActionPerformed
 
-    private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
-        // TODO add your handling code here:
-        close();
-        AccountSignUp signup = new AccountSignUp();
-        signup.setVisible(true);
-
-    }//GEN-LAST:event_signupBtnActionPerformed
-
     private void signinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinBtnActionPerformed
         // TODO add your handling code here:
-        close();
-        AccountSignIn signin = new AccountSignIn();
-        signin.setVisible(true);
     }//GEN-LAST:event_signinBtnActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void Search(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_Search
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
-        usernameSTATUS.setText("User:");
-        Main.USERNAME_STATEMENT = "User:";
-        Main.Status_Username_ON = false;
     }//GEN-LAST:event_logoutBtnActionPerformed
 
-    private void usernameSTATUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameSTATUSActionPerformed
+    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
         // TODO add your handling code here:
-        //System.out.println(Main.USERNAME_STATEMENT);
-       
-        if(Main.Status_Username_ON == true)
-            usernameSTATUS.setText( Main.USERNAME_STATEMENT);
-        else
-            usernameSTATUS.setText( "User:");
-        
-        
-    }//GEN-LAST:event_usernameSTATUSActionPerformed
+    }//GEN-LAST:event_usernameFieldActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
      // TODO add your handling code here:
      //get text from search bar and write sql query, if null then false
+    int rows = 0;
         String tmp = jTextField1.getText();
-        if(tmp.length() != 0){
+        if(!tmp.trim().isEmpty()){
             if(minPrice.getText().isEmpty() && maxPrice.getText().isEmpty()){
                 try{
             String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Name like '%"+tmp+"%'";
@@ -354,6 +521,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -380,6 +552,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -406,6 +583,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -433,6 +615,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -442,7 +629,7 @@ public class productFrm extends javax.swing.JFrame {
             }
             }
         }
-        if(tmp.isEmpty()){
+        if(tmp.trim().isEmpty()){
             if(minPrice.getText().length() > 0 && maxPrice.getText().length() > 0){
                 try{
             int value1 = Integer.parseInt(minPrice.getText());
@@ -462,6 +649,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -470,7 +662,7 @@ public class productFrm extends javax.swing.JFrame {
                 productDisplay.setText(e.getMessage());
             }
             }
-            if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){
+            if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){          
                 try{
             int value2 = Integer.parseInt(maxPrice.getText());
             String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price <= '"+value2+"'";
@@ -488,6 +680,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -497,6 +694,7 @@ public class productFrm extends javax.swing.JFrame {
             }
             }   
             if(minPrice.getText().length() > 0 && maxPrice.getText().isEmpty()){
+                Details.setVisible(true);
                 try{
             int value1 = Integer.parseInt(minPrice.getText());
             String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price >= '"+value1+"'";
@@ -514,6 +712,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -522,6 +725,17 @@ public class productFrm extends javax.swing.JFrame {
                 productDisplay.setText(e.getMessage());
             }
             }
+        }
+        if(tmp.trim().isEmpty() && minPrice.getText().isEmpty() && maxPrice.getText().isEmpty()){
+            productDisplay.selectAll();
+            productDisplay.replaceSelection("");
+//            Details.setVisible(false);
+        }
+        rowCount = rows;
+        if(rows == 0){
+            Details.setVisible(false);
+        } else if (rows > 0){
+            Details.setVisible(true);
         }
     }//GEN-LAST:event_searchBtnActionPerformed
 
@@ -541,10 +755,11 @@ public class productFrm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_maxPriceKeyTyped
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+    private void SearchBtn(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBtn
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            int rows = 0;
         String tmp = jTextField1.getText();
-        if(tmp.length() != 0){
+        if(!tmp.trim().isEmpty()){
             if(minPrice.getText().isEmpty() && maxPrice.getText().isEmpty()){
                 try{
             String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Name like '%"+tmp+"%'";
@@ -562,6 +777,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -588,6 +808,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -614,6 +839,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -641,6 +871,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -650,7 +885,7 @@ public class productFrm extends javax.swing.JFrame {
             }
             }
         }
-        if(tmp.isEmpty()){
+        if(tmp.trim().isEmpty()){
             if(minPrice.getText().length() > 0 && maxPrice.getText().length() > 0){
                 try{
             int value1 = Integer.parseInt(minPrice.getText());
@@ -670,6 +905,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -678,7 +918,7 @@ public class productFrm extends javax.swing.JFrame {
                 productDisplay.setText(e.getMessage());
             }
             }
-            if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){
+            if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){          
                 try{
             int value2 = Integer.parseInt(maxPrice.getText());
             String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price <= '"+value2+"'";
@@ -696,6 +936,11 @@ public class productFrm extends javax.swing.JFrame {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -705,6 +950,7 @@ public class productFrm extends javax.swing.JFrame {
             }
             }   
             if(minPrice.getText().length() > 0 && maxPrice.getText().isEmpty()){
+                Details.setVisible(true);
                 try{
             int value1 = Integer.parseInt(minPrice.getText());
             String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price >= '"+value1+"'";
@@ -721,7 +967,12 @@ public class productFrm extends javax.swing.JFrame {
             while (rs.next()) {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
-                }
+                }   
+                    ID[rows] = rs.getString(1);
+                    Quant[rows] = rs.getString(2);
+                    Price[rows] = rs.getString(3);
+                    Name[rows] = rs.getString(4);
+                rows++;
                 results.append("\n");
             }
             productDisplay.setText(results.toString());
@@ -731,21 +982,81 @@ public class productFrm extends javax.swing.JFrame {
             }
             }
         }
-//        if(tmp == null && minPrice.getText() == null && maxPrice.getText() == null){
-//            //No options provided -> Nothing happen
-//        }
+        if(tmp.trim().isEmpty() && minPrice.getText().isEmpty() && maxPrice.getText().isEmpty()){
+            productDisplay.selectAll();
+            productDisplay.replaceSelection("");
+//            Details.setVisible(false);
         }
-    }//GEN-LAST:event_jTextField1KeyPressed
+        rowCount = rows;
+        if(rows == 0){
+            Details.setVisible(false);
+        } else if (rows > 0){
+            Details.setVisible(true);
+        }
+        }
+    }//GEN-LAST:event_SearchBtn
+
+    private void DetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetailsActionPerformed
+        // TODO add your handling code here:
+        arrCount = 0;
+        try{
+            for(int i = 0; i < rowCount; i++){
+            String SQL = "select Image_Decription from Product where ID = '"+ID[i]+"'";
+            pst = conn.prepareStatement(SQL);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                imagedata = rs.getBytes("Image_Decription");
+                Image icon = new ImageIcon(imagedata).getImage();
+                Image img = icon.getScaledInstance(720,680, Image.SCALE_SMOOTH);
+                ImageIcon image = new ImageIcon(img);
+                Img[i] = image;
+            }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(productFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           ID_Display.setText(ID[arrCount]);
+           Name_Display.setText(Name[arrCount]);
+           Quantity_Display.setText(Quant[arrCount]);
+           Price_Display.setText(Price[arrCount]);
+           IMG_Display.setIcon(Img[arrCount]);
+           ProductDetails_Popup.setVisible(true);
+    }//GEN-LAST:event_DetailsActionPerformed
+
+    private void ForwardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForwardBtnActionPerformed
+        if(arrCount < rowCount - 1){
+            arrCount++;
+        }
+            ID_Display.setText(ID[arrCount]);
+            Name_Display.setText( Name[arrCount]);
+            Quantity_Display.setText(Quant[arrCount]);
+            Price_Display.setText(Price[arrCount]);
+            IMG_Display.setIcon(Img[arrCount]);
+    }//GEN-LAST:event_ForwardBtnActionPerformed
+
+    private void BackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackBtnActionPerformed
+            if(arrCount > 0 ){
+            arrCount--;
+        }   
+           ID_Display.setText(ID[arrCount]);
+           Name_Display.setText(Name[arrCount]);
+           Quantity_Display.setText(Quant[arrCount]);
+           Price_Display.setText(Price[arrCount]);
+           IMG_Display.setIcon(Img[arrCount]);
+    }//GEN-LAST:event_BackBtnActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void AddToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddToCartBtnActionPerformed
+        // TODO add your handling code here:
+        //Cart table
+    }//GEN-LAST:event_AddToCartBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(Main.Status_Username_ON == true){
-        close();
-        Cart j = new Cart();
-        j.setVisible(true);
-        usernameSTATUS.setText(Main.USERNAME_STATEMENT);
-        }
-        usernameSTATUS.setText(Main.USERNAME_STATEMENT);
+        // Redirect to cartDetails
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -764,13 +1075,7 @@ public class productFrm extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(productFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(productFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(productFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(productFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -782,12 +1087,27 @@ public class productFrm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddToCartBtn;
+    private javax.swing.JButton BackBtn;
+    private javax.swing.JButton Details;
+    private javax.swing.JButton ForwardBtn;
+    private javax.swing.JLabel ID_Display;
+    private javax.swing.JLabel IMG_Display;
+    private javax.swing.JLabel Name_Display;
+    private javax.swing.JLabel Price_Display;
+    private javax.swing.JLabel Price_Label;
+    private javax.swing.JDialog ProductDetails_Popup;
+    private javax.swing.JLabel ProductID_Label;
+    private javax.swing.JLabel ProductName_Label;
+    private javax.swing.JLabel Quantity_Display;
+    private javax.swing.JLabel Quantity_Label;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton loginBtn;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JLabel mainLabel;
     private javax.swing.JLabel maxLabel;
@@ -799,9 +1119,7 @@ public class productFrm extends javax.swing.JFrame {
     private javax.swing.JButton searchBtn;
     private javax.swing.JLabel searchLabel;
     private javax.swing.JButton signinBtn;
-    private javax.swing.JButton signupBtn;
     private javax.swing.JLabel sortLabel;
-    public static javax.swing.JTextField usernameSTATUS;
+    private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
-
 }

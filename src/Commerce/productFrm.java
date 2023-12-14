@@ -60,9 +60,14 @@ public class productFrm extends javax.swing.JFrame {
             ResultSet rs = stmt.executeQuery(code);
                 while(rs.next()){
                 res++;
-            }            
+            }
+                rs.close();
         }catch(SQLException e){
-        }
+            
+        }finally{
+           
+       }
+      
        //System.out.println(res);
        return res;
     }
@@ -523,6 +528,7 @@ public class productFrm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -1145,6 +1151,17 @@ public class productFrm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         // Redirect to cartDetails
+        if(Main.Status_Username_ON == true){
+            close();
+            Cart j = new Cart();
+            j.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Sign In For Order!", "Message", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartActionPerformed
@@ -1231,6 +1248,6 @@ public class productFrm extends javax.swing.JFrame {
     private javax.swing.JLabel searchLabel;
     private javax.swing.JButton signinBtn;
     private javax.swing.JLabel sortLabel;
-    private javax.swing.JTextField usernameField;
+    public javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,9 +24,14 @@ package Commerce;
  */
 public class Main {
     
+    public static boolean Function_Account;
+    
     public static boolean Status_Username_ON = false;
     public static String USERNAME_STATEMENT = "User:";
-    public static String user ;
+    public static String user;
+    public static int USERS_ID;
+    
+    
     /*
     public void close(){
         WindowEvent closeW = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);

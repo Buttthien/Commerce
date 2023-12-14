@@ -63,7 +63,7 @@ public class AccountSignUp extends javax.swing.JFrame {
     private void addAccount(int ID, String username, String password, String email, String phone, String address, boolean sex, boolean func){
         String id = ID +"";
         
-        String functionAccount = (func == true) ? "INSERT INTO Supplier(Supplier_ID) VALUES ('" + id + "');" : "INSERT INTO Customer(Customer_ID) VALUES ('" + id + "');"  ;
+        String functionAccount = (func == true) ? "INSERT INTO Supplier(Supplier_ID) VALUES (" + id + ");" : "INSERT INTO Customer(Customer_ID) VALUES (" + id + ");"  ;
         System.out.printf("%s\n", functionAccount);
         String gender = (sex == true) ? "Male" : "Female";
         String code = "INSERT INTO Account(ID, User_Name, Phone_Number, Email, PassWord, Address, Sex) VALUES ("
@@ -80,23 +80,13 @@ public class AccountSignUp extends javax.swing.JFrame {
            stmt.executeUpdate();
            PreparedStatement stm = con.prepareStatement(functionAccount);
            stm.executeUpdate();
-           /*
-           PreparedStatement stmt = con.prepareStatement(
-     "INSERT INTO Account(ID, User_Name, Phone_Number, Email, PassWord, Address, Sex, Birth_Date) VALUES (?,?,?,?,?,?,?,'26-11-2003');");
-           stmt.setInt(1, ID);
-           stmt.setString(2, username); 
-           stmt.setString(3, phone); 
-           stmt.setString(4, email); 
-           stmt.setString(5, password); 
-           stmt.setString(6, address); 
-           stmt.setString(7, gender); 
-           */
-           
-           
+
              
       
         }catch(SQLException e){
-        }    
+        } 
+
+       System.out.println(code);
     }
     private int checkAccount(String table){
         
@@ -127,32 +117,16 @@ public class AccountSignUp extends javax.swing.JFrame {
 
        try(Connection con = DriverManager.getConnection(connect);Statement stmt = con.createStatement();){
             ResultSet rs = stmt.executeQuery(code);
-            //ResultSet rs = ExecutionSQL();            
-            
-            //StringBuilder results = new StringBuilder();
+
             ResultSetMetaData metaData = rs.getMetaData();
 
             numberOfColumns = metaData.getColumnCount();
-            //System.out.println(numberOfColumns);
-            /*
-            for(int i = 1; i <= numberOfColumns; i++){
-                results.append(metaData.getColumnName(i)).append("<>\t");
-            }
-            results.append("\n");
-            */
+
             while(rs.next()){
                 res++;
-            /*
-            for(int i = 1; i <= numberOfColumns; i++){
-                results.append(rs.getObject(i)).append("\t");
-                //results.append(rs.getObject(i)).append("\t");
+
             }
-            results.append("\n");
-            
-            */
-            }
-            
-            //Area.setText(results.toString());
+
             
         }catch(SQLException e){
         }

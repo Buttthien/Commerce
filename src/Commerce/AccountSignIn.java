@@ -9,7 +9,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Commerce.Main;
+//import Commerce.Main;
 import javax.swing.JOptionPane;
 
     
@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  */
 public class AccountSignIn extends javax.swing.JFrame {
     
-    
+    public static String tempo;
     private String userTMP;
     public boolean user_OK = false;
     public boolean pass_OK = false;
@@ -54,37 +54,25 @@ public class AccountSignIn extends javax.swing.JFrame {
         int res = 0;
         String code = "SELECT "+ object + " FROM " + table + " WHERE "+ object + " ='" + name+"'";
 
-
+        System.out.println(code);
+        
     String connect = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa;encrypt=false;trustServerCertificate=false;";
 
        try(Connection con = DriverManager.getConnection(connect);Statement stmt = con.createStatement();){
             ResultSet rs = stmt.executeQuery(code);
-            //ResultSet rs = ExecutionSQL();            
+           
             
-            //StringBuilder results = new StringBuilder();
+
             ResultSetMetaData metaData = rs.getMetaData();
 
             numberOfColumns = metaData.getColumnCount();
-            //System.out.println(numberOfColumns);
-            /*
-            for(int i = 1; i <= numberOfColumns; i++){
-                results.append(metaData.getColumnName(i)).append("<>\t");
-            }
-            results.append("\n");
-            */
+
             while(rs.next()){
                 res++;
-            /*
-            for(int i = 1; i <= numberOfColumns; i++){
-                results.append(rs.getObject(i)).append("\t");
-                //results.append(rs.getObject(i)).append("\t");
-            }
-            results.append("\n");
-            
-            */
+
             }
             
-            //Area.setText(results.toString());
+            
             
         }catch(SQLException e){
         }
@@ -100,8 +88,8 @@ public class AccountSignIn extends javax.swing.JFrame {
     }
     
     private boolean checkPassword(String a, String b){
-        String code = "SELECT * FROM Account WHERE User_Name = '" + a +"' AND PassWord = '" + b + "';";
-        System.out.println(code);
+        String code = "SELECT ID FROM Account WHERE User_Name = '" + a +"' AND PassWord = '" + b + "';";
+        //System.out.println(code);
 
     String connect = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa;encrypt=false;trustServerCertificate=false;";
         int numberOfColumns = 0;
@@ -110,7 +98,8 @@ public class AccountSignIn extends javax.swing.JFrame {
             ResultSet rs = stmt.executeQuery(code);
             //ResultSet rs = ExecutionSQL();            
             
-            //StringBuilder results = new StringBuilder();
+            //String results;
+            StringBuilder results = new StringBuilder();
             ResultSetMetaData metaData = rs.getMetaData();
 
             numberOfColumns = metaData.getColumnCount();
@@ -122,19 +111,22 @@ public class AccountSignIn extends javax.swing.JFrame {
             results.append("\n");
             */
             while(rs.next()){
+                
                 res++;
-            /*
-            for(int i = 1; i <= numberOfColumns; i++){
-                results.append(rs.getObject(i)).append("\t");
+            
+            for(int i = 1; i <= numberOfColumns; i++)
+                results.append(rs.getObject(i));
                 //results.append(rs.getObject(i)).append("\t");
             }
-            results.append("\n");
+            //results.append("\n")
+            if(res > 0)tempo = results.toString();
+            //System.out.println(tempo);
             
-            */
-            }
-            System.out.println(res);
             
-            //Area.setText(results.toString());
+            
+           
+
+           // System.out.println( results);
             
         }catch(SQLException e){
         }
@@ -143,6 +135,7 @@ public class AccountSignIn extends javax.swing.JFrame {
        else
             return false;
     }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -324,9 +317,20 @@ public class AccountSignIn extends javax.swing.JFrame {
             
             Main.USERNAME_STATEMENT = "User:" + userTMP;
             Main.user = userTMP;
-            System.out.println(Main.USERNAME_STATEMENT);
+            if( checkExistence("Supplier_ID", "Supplier", tempo) == true) {
+                Main.Function_Account = true;
+                System.out.println(1);
+            }
+            else{
+                Main.Function_Account = false;
+                System.out.println(11);
+            }
+            //int n = Integer.parseInt(tempo);
+            //Main.USER_ID_SIGN_UP = n;
+            //System.out.println(n);
             //productFrm.usernameSTATUS.setText( Main.USERNAME_STATEMENT);
-            JOptionPane.showMessageDialog(null, "Sign in succeceed!", "Message", JOptionPane.INFORMATION_MESSAGE);        
+            JOptionPane.showMessageDialog(null, "Sign in succeceed!", "Message", JOptionPane.INFORMATION_MESSAGE);
+            
             user_OK = false;
             pass_OK = false;
             //return;
@@ -340,9 +344,11 @@ public class AccountSignIn extends javax.swing.JFrame {
         passTMP = pass.getPassword();
         String tmp = String.valueOf(passTMP);
         if(user_OK == true){
-            if(checkPassword(userTMP, tmp) == true)
+            if(checkPassword(userTMP, tmp) == true){
                 pass_OK = true;
-        //if(passTMP.length ==)
+            }
+            else 
+                pass_OK = false;
         }
     }//GEN-LAST:event_passActionPerformed
 

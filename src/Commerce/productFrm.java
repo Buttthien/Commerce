@@ -4,11 +4,13 @@
  */
 package Commerce;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -20,10 +22,19 @@ public class productFrm extends javax.swing.JFrame {
     ResultSet rs;
     PreparedStatement pst;
     private int rowCount;
-    private int arrCount = 0;
+    public static int arrCount = 0;
+    
+    public int Num = 0;
+    //public static int InputQuantity;
+    
+    public static int chosen_number;
+    
     byte[] imagedata = null;
-        public String[] ID = new String[20];
-        public String[] Quant = new String[20];
+    
+        public static String id;
+        
+        public static String[] ID = new String[20];
+        public static String[] Quant = new String[20];
         public String[] Name = new String[20];
         public String[] Price = new String[20];
         public ImageIcon[] Img = new ImageIcon[20];
@@ -33,6 +44,33 @@ public class productFrm extends javax.swing.JFrame {
     public productFrm() {
         initComponents();
         connect();
+        this.Num = checkCountNum("Cart");
+    }
+    
+    
+        private int checkCountNum(String table){
+        
+        int res = 0;
+        String code = "SELECT * FROM " + table +";" ;
+        //System.out.println(code);
+
+        String connect = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa;encrypt=false;trustServerCertificate=false;";
+
+       try(Connection con = DriverManager.getConnection(connect);Statement stmt = con.createStatement();){
+            ResultSet rs = stmt.executeQuery(code);
+                while(rs.next()){
+                res++;
+            }            
+        }catch(SQLException e){
+        }
+       //System.out.println(res);
+       return res;
+    }
+        
+        
+        public void close(){
+        WindowEvent closeW = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeW);
     }
     private void connect(){
     String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa";
@@ -87,10 +125,10 @@ public class productFrm extends javax.swing.JFrame {
         logoutBtn = new javax.swing.JButton();
         usernameField = new javax.swing.JTextField();
         Details = new javax.swing.JButton();
+        cart = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         ProductDetails_Popup.setSize(767,516);
-        ProductDetails_Popup.setMaximumSize(new java.awt.Dimension(2000, 1800));
-        ProductDetails_Popup.setPreferredSize(new java.awt.Dimension(1310, 880));
         ProductDetails_Popup.setSize(new java.awt.Dimension(1310, 880));
         ProductDetails_Popup.setType(java.awt.Window.Type.POPUP);
 
@@ -246,7 +284,7 @@ public class productFrm extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         mainLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -368,6 +406,20 @@ public class productFrm extends javax.swing.JFrame {
             }
         });
 
+        cart.setText("CART");
+        cart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cartActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("SHOP");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -382,14 +434,20 @@ public class productFrm extends javax.swing.JFrame {
                                 .addGap(403, 403, 403)
                                 .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(loginBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(signinBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logoutBtn))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(usernameField, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(loginBtn)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(signinBtn)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(logoutBtn))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jButton2)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(cart)
+                                            .addGap(77, 77, 77)))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,18 +481,20 @@ public class productFrm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(loginBtn)
                             .addComponent(signinBtn)
-                            .addComponent(logoutBtn))))
-                .addGap(35, 35, 35)
+                            .addComponent(logoutBtn))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cart)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -459,7 +519,7 @@ public class productFrm extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Details)
-                .addContainerGap(325, Short.MAX_VALUE))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
 
         pack();
@@ -479,10 +539,16 @@ public class productFrm extends javax.swing.JFrame {
 
     private void signinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinBtnActionPerformed
         // TODO add your handling code here:
+        close();
+        AccountSignUp j = new AccountSignUp();
+        j.setVisible(true);
     }//GEN-LAST:event_signinBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
+                close();
+        AccountSignIn j = new AccountSignIn();
+        j.setVisible(true);
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void Search(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search
@@ -492,10 +558,17 @@ public class productFrm extends javax.swing.JFrame {
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
+        Main.Status_Username_ON = false;
+        Main.USERNAME_STATEMENT = "User:";
+        usernameField.setText(Main.USERNAME_STATEMENT);
+        
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
         // TODO add your handling code here:
+        if(Main.Status_Username_ON == true)
+            usernameField.setText(Main.USERNAME_STATEMENT);
+            
     }//GEN-LAST:event_usernameFieldActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -1051,13 +1124,49 @@ public class productFrm extends javax.swing.JFrame {
 
     private void AddToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddToCartBtnActionPerformed
         // TODO add your handling code here:
-        //Cart table
+        Num ++;
+         id = Num +"";
+        
+        //chosen_number = 0;
+        
+        if(Main.USERS_ID != 0 || Main.Status_Username_ON  == true)
+        {
+            Product_Quantity jjj = new Product_Quantity();
+            jjj.setVisible(true);
+
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Sign In For Order!", "Message", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+  
     }//GEN-LAST:event_AddToCartBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         // Redirect to cartDetails
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartActionPerformed
+        // TODO add your handling code here:
+    if(Main.Function_Account == false){
+        if(Main.Status_Username_ON == true){
+        close();
+        Cart j = new Cart();
+        j.setVisible(true);
+        }
+    }
+    }//GEN-LAST:event_cartActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(Main.Function_Account == true){
+            Shop j = new Shop();
+            j.setVisible(true);
+            
+        
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1101,7 +1210,9 @@ public class productFrm extends javax.swing.JFrame {
     private javax.swing.JLabel ProductName_Label;
     private javax.swing.JLabel Quantity_Display;
     private javax.swing.JLabel Quantity_Label;
+    private javax.swing.JButton cart;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

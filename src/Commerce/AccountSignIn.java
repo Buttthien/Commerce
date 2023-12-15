@@ -31,6 +31,7 @@ public class AccountSignIn extends javax.swing.JFrame {
     public boolean user_OK = false;
     public boolean pass_OK = false;
     public char[] passTMP;
+    //private String name;
     
     
     public boolean signIn = false;
@@ -307,6 +308,7 @@ public class AccountSignIn extends javax.swing.JFrame {
         // TODO add your handling code here:
         close();
         productFrm jj = new productFrm();
+        jj.usernameField.setText(Main.USERNAME_STATEMENT);
         jj.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -318,8 +320,10 @@ public class AccountSignIn extends javax.swing.JFrame {
             Main.USERNAME_STATEMENT = "User:" + userTMP;
             Main.user = userTMP;
             if( checkExistence("Supplier_ID", "Supplier", tempo) == true) {
+                //name = Main.USERNAME_STATEMENT;
                 Main.Function_Account = true;
                 System.out.println(1);
+                
             }
             else{
                 Main.Function_Account = false;

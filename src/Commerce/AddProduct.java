@@ -162,8 +162,9 @@ public class AddProduct extends javax.swing.JFrame {
         String i = name.getText();
         String ii = quantity.getText();
         String iii = price.getText();
-        if(i.length() !=0 && ii.length() != 0 && iii.length() != 0)
+        if(i.length() !=0 && ii.length() != 0 && iii.length() != 0){
             addProduct(i,ii,iii);
+        }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**

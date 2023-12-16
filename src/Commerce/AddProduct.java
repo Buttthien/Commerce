@@ -4,12 +4,15 @@
  */
 package Commerce;
 
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,10 +46,16 @@ public class AddProduct extends javax.swing.JFrame {
        //System.out.println(res);
        return res;
     }
+        
+    public void close(){
+    WindowEvent closeW = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+    Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeW);
+    }
     
     
     
     private void addProduct(String name,String quantity, String price){
+            number_product++;
         String id = number_product +"";
         
         String code = "INSERT INTO Product(ID, Name, Remaining_Quantity, Price,Supplier_Customer_ID) VALUES ("
@@ -87,7 +96,7 @@ public class AddProduct extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         price = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("                         NEW PRODUCT");
@@ -164,6 +173,10 @@ public class AddProduct extends javax.swing.JFrame {
         String iii = price.getText();
         if(i.length() !=0 && ii.length() != 0 && iii.length() != 0){
             addProduct(i,ii,iii);
+            JOptionPane.showMessageDialog(null, "Import new product completely!", "Message", JOptionPane.INFORMATION_MESSAGE);
+            close();
+            Shop.showw();
+            
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 

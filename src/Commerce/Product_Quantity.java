@@ -60,8 +60,12 @@ public class Product_Quantity extends javax.swing.JFrame {
     
     
     public void addCart(){
+        int ttttt = Integer.parseInt(productFrm.id);
+        ttttt ++;
+        String temppp = ttttt + "";
+        
         String code = "INSERT INTO Cart(ID, Product_ID, Quantity_in_Queue, Cart_ID) VALUES ("
-                + productFrm.id + ",'" + productFrm.ID[arrCount] + "',"+ number + "," + AccountSignIn.tempo
+                + temppp + ",'" + productFrm.ID[arrCount] + "',"+ number + "," + AccountSignIn.tempo
                 +")";
         System.out.println(code);
         
@@ -174,10 +178,7 @@ public class Product_Quantity extends javax.swing.JFrame {
             int t = temp - number ;
             Quant[arrCount] = t + ""; 
             JOptionPane.showMessageDialog(null, "Add to Cart successfully!", "Message", JOptionPane.INFORMATION_MESSAGE);
-            close();
-            
-            //return;
-            
+            close();          
             
         }
 

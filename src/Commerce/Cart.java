@@ -179,14 +179,16 @@ public class Cart extends javax.swing.JFrame {
             
             int numberOfColumns = metaData.getColumnCount();
             for(int i = 1; i <= numberOfColumns; i++){
+                
                 results.append(metaData.getColumnName(i)).append("\t\t");
+
             }
             results.append("\n");
             
             while(rs.next()){
             
             for(int i = 1; i <= numberOfColumns; i++){
-                results.append(rs.getObject(i)).append("\t\t");
+                results.append(rs.getObject(i)).append("\t");
                 
                 if(i == 1) {
                     int a = Integer.parseInt(rs.getObject(i).toString());
@@ -203,7 +205,7 @@ public class Cart extends javax.swing.JFrame {
             
             customer_bill = total_bill + "";
             bill.setText(customer_bill);
-            rs.close();
+            
             
        }catch(SQLException e){
            text.setText(e.getMessage());

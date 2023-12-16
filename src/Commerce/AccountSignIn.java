@@ -142,9 +142,9 @@ public class AccountSignIn extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        usernameLabel = new javax.swing.JTextField();
+        passwordLabel = new javax.swing.JTextField();
+        signinBtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
         usernameLogin = new javax.swing.JTextField();
@@ -152,31 +152,31 @@ public class AccountSignIn extends javax.swing.JFrame {
         pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1070, 800));
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setText("Username");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        usernameLabel.setEditable(false);
+        usernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        usernameLabel.setText("Username");
+        usernameLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                usernameLabelActionPerformed(evt);
             }
         });
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField2.setText("Password");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        passwordLabel.setEditable(false);
+        passwordLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        passwordLabel.setText("Password");
+        passwordLabel.setFocusable(false);
+        passwordLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                passwordLabelActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jButton1.setText("Sign In");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        signinBtn.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        signinBtn.setText("Sign In");
+        signinBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                signinBtnActionPerformed(evt);
             }
         });
 
@@ -211,7 +211,6 @@ public class AccountSignIn extends javax.swing.JFrame {
             }
         });
 
-        pass.setText("jPasswordField1");
         pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passActionPerformed(evt);
@@ -227,8 +226,8 @@ public class AccountSignIn extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2))
+                            .addComponent(usernameLabel)
+                            .addComponent(passwordLabel))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -241,7 +240,7 @@ public class AccountSignIn extends javax.swing.JFrame {
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(404, 404, 404)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(signinBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(184, 184, 184)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,14 +256,14 @@ public class AccountSignIn extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                            .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                             .addComponent(usernameLogin))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(135, 135, 135)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(signinBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,21 +284,13 @@ public class AccountSignIn extends javax.swing.JFrame {
         j1.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void usernameLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameLabelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_usernameLabelActionPerformed
 
     private void usernameLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameLoginActionPerformed
         // TODO add your handling code here:
-         userTMP = usernameLogin.getText();
-        
-        if(userTMP.length() == 0){
-        JOptionPane.showMessageDialog(null, "Please input username!", "Message", JOptionPane.WARNING_MESSAGE);
-        return;
-        }else
-        if(checkExistence("User_Name", "Account",userTMP) == true)
-                user_OK = true;
-        else user_OK = false;
+         
         
         
     }//GEN-LAST:event_usernameLoginActionPerformed
@@ -312,8 +303,31 @@ public class AccountSignIn extends javax.swing.JFrame {
         jj.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void signinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinBtnActionPerformed
         // TODO add your handling code here:
+        userTMP = usernameLogin.getText();
+        
+        if(userTMP.length() == 0){
+        JOptionPane.showMessageDialog(null, "Please input username!", "Message", JOptionPane.WARNING_MESSAGE);
+        return;
+        }
+        if(checkExistence("User_Name", "Account",userTMP) == true){
+                user_OK = true;
+        }
+        else {
+            user_OK = false;
+        }
+        
+        passTMP = pass.getPassword();
+        String tmp = String.valueOf(passTMP);
+        if(user_OK == true){
+            if(checkPassword(userTMP, tmp) == true){
+                pass_OK = true;
+            }
+            else 
+                pass_OK = false;
+        }
+        
         if(user_OK == true && pass_OK == true){
             Main.Status_Username_ON = true;
             
@@ -341,24 +355,16 @@ public class AccountSignIn extends javax.swing.JFrame {
         }else{            
             JOptionPane.showMessageDialog(null, "Wrong username or password! Please check again!", "Message", JOptionPane.ERROR_MESSAGE);        
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_signinBtnActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
-        passTMP = pass.getPassword();
-        String tmp = String.valueOf(passTMP);
-        if(user_OK == true){
-            if(checkPassword(userTMP, tmp) == true){
-                pass_OK = true;
-            }
-            else 
-                pass_OK = false;
-        }
+        
     }//GEN-LAST:event_passActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void passwordLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordLabelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_passwordLabelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,13 +403,13 @@ public class AccountSignIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JPasswordField pass;
+    private javax.swing.JTextField passwordLabel;
+    private javax.swing.JButton signinBtn;
+    private javax.swing.JTextField usernameLabel;
     private javax.swing.JTextField usernameLogin;
     // End of variables declaration//GEN-END:variables
 }

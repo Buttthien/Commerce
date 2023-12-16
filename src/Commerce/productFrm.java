@@ -1146,7 +1146,7 @@ public class productFrm extends javax.swing.JFrame {
     private void AddToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddToCartBtnActionPerformed
         // TODO add your handling code here:
         //Num ++;
-        // id = Num +"";
+         id = Num +"";
         
         //chosen_number = 0;
         

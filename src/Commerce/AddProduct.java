@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -31,18 +32,38 @@ public class AddProduct extends javax.swing.JFrame {
         private int checkID(String table){
         
         int res = 0;
-        String code = "SELECT * FROM " + table +";" ;
+        String code = "SELECT ID FROM " + table +" ORDER BY ID DESC;" ;
         //System.out.println(code);
 
         String connect = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa;encrypt=false;trustServerCertificate=false;";
 
        try(Connection con = DriverManager.getConnection(connect);Statement stmt = con.createStatement();){
             ResultSet rs = stmt.executeQuery(code);
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            
+            
+            int numberOfColumns = metaData.getColumnCount();
                 while(rs.next()){
                 res++;
-            }            
+                int count = 0;
+                for(int i = 1; i <= numberOfColumns; i++){
+                    count ++;
+                    results.append(rs.getObject(i));
+                    if(count == 1)break;
+                }
+                //System.out.println(results);
+                
+                res  = Integer.parseInt(results.toString());
+                if(count == 1) break;
+            }
+                rs.close();
         }catch(SQLException e){
-        }
+            
+        }finally{
+           
+       }
+      
        //System.out.println(res);
        return res;
     }

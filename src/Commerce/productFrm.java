@@ -383,6 +383,8 @@ public class productFrm extends javax.swing.JFrame {
 
         usernameField.setText("Username");
         usernameField.setEditable(false);
+        usernameField.setHighlighter(null);
+        usernameField.setFocusable(false);
         usernameField.setBorder(null);
         usernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

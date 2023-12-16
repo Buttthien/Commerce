@@ -154,12 +154,13 @@ public class Product_Quantity extends javax.swing.JFrame {
 
     private void tActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tActionPerformed
         // TODO add your handling code here:
-                 num = t.getText();
+                 
         //number = Integer.parseInt(num);
     }//GEN-LAST:event_tActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        num = t.getText();
         number = Integer.parseInt(num);
         int temp = Integer.parseInt(productFrm.Quant[arrCount]);
         //    System.out.println(temp);

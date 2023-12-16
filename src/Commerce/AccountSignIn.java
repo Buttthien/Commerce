@@ -152,7 +152,6 @@ public class AccountSignIn extends javax.swing.JFrame {
         pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1070, 800));
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -211,7 +210,6 @@ public class AccountSignIn extends javax.swing.JFrame {
             }
         });
 
-        pass.setText("jPasswordField1");
         pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passActionPerformed(evt);
@@ -291,15 +289,7 @@ public class AccountSignIn extends javax.swing.JFrame {
 
     private void usernameLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameLoginActionPerformed
         // TODO add your handling code here:
-         userTMP = usernameLogin.getText();
-        
-        if(userTMP.length() == 0){
-        JOptionPane.showMessageDialog(null, "Please input username!", "Message", JOptionPane.WARNING_MESSAGE);
-        return;
-        }else
-        if(checkExistence("User_Name", "Account",userTMP) == true)
-                user_OK = true;
-        else user_OK = false;
+         
         
         
     }//GEN-LAST:event_usernameLoginActionPerformed
@@ -314,6 +304,29 @@ public class AccountSignIn extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        userTMP = usernameLogin.getText();
+        
+        if(userTMP.length() == 0){
+        JOptionPane.showMessageDialog(null, "Please input username!", "Message", JOptionPane.WARNING_MESSAGE);
+        return;
+        }
+        if(checkExistence("User_Name", "Account",userTMP) == true){
+                user_OK = true;
+        }
+        else {
+            user_OK = false;
+        }
+        
+        passTMP = pass.getPassword();
+        String tmp = String.valueOf(passTMP);
+        if(user_OK == true){
+            if(checkPassword(userTMP, tmp) == true){
+                pass_OK = true;
+            }
+            else 
+                pass_OK = false;
+        }
+        
         if(user_OK == true && pass_OK == true){
             Main.Status_Username_ON = true;
             
@@ -345,15 +358,7 @@ public class AccountSignIn extends javax.swing.JFrame {
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
-        passTMP = pass.getPassword();
-        String tmp = String.valueOf(passTMP);
-        if(user_OK == true){
-            if(checkPassword(userTMP, tmp) == true){
-                pass_OK = true;
-            }
-            else 
-                pass_OK = false;
-        }
+        
     }//GEN-LAST:event_passActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed

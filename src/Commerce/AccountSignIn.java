@@ -97,38 +97,23 @@ public class AccountSignIn extends javax.swing.JFrame {
         int res = 0;
        try(Connection con = DriverManager.getConnection(connect);Statement stmt = con.createStatement();){
             ResultSet rs = stmt.executeQuery(code);
-            //ResultSet rs = ExecutionSQL();            
-            
-            //String results;
+
             StringBuilder results = new StringBuilder();
             ResultSetMetaData metaData = rs.getMetaData();
 
             numberOfColumns = metaData.getColumnCount();
-            //System.out.println(numberOfColumns);
-            /*
-            for(int i = 1; i <= numberOfColumns; i++){
-                results.append(metaData.getColumnName(i)).append("<>\t");
-            }
-            results.append("\n");
-            */
+
             while(rs.next()){
                 
                 res++;
             
             for(int i = 1; i <= numberOfColumns; i++)
                 results.append(rs.getObject(i));
-                //results.append(rs.getObject(i)).append("\t");
-            }
-            //results.append("\n")
-            if(res > 0)tempo = results.toString();
-            //System.out.println(tempo);
-            
-            
-            
-           
 
-           // System.out.println( results);
-            
+            }
+
+            if(res > 0)tempo = results.toString();            
+              rs.close();  
         }catch(SQLException e){
         }
        if(res > 0)
@@ -323,6 +308,9 @@ public class AccountSignIn extends javax.swing.JFrame {
         if(user_OK == true){
             if(checkPassword(userTMP, tmp) == true){
                 pass_OK = true;
+
+                        Main.USERS_ID = Integer.parseInt(AccountSignIn.tempo);
+
             }
             else 
                 pass_OK = false;
@@ -347,7 +335,7 @@ public class AccountSignIn extends javax.swing.JFrame {
             //Main.USER_ID_SIGN_UP = n;
             //System.out.println(n);
             //productFrm.usernameSTATUS.setText( Main.USERNAME_STATEMENT);
-            JOptionPane.showMessageDialog(null, "Sign in succeceed!", "Message", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Sign in succeed!", "Message", JOptionPane.INFORMATION_MESSAGE);
             
             user_OK = false;
             pass_OK = false;

@@ -31,19 +31,8 @@ public class Main {
     public static String user;
     public static int USERS_ID;
     
-    
-    /*
-    public void close(){
-        WindowEvent closeW = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeW);
-    }
-    */
 
     public static void main(String[] args) {
-        //productFrm frm = new productFrm();
-        //frm.setVisible(true);
-        //AccountSignIn j = new AccountSignIn();
-        //j.setVisible(true);
         
         productFrm jj = new productFrm();
         jj.setVisible(true);

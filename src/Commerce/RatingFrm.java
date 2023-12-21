@@ -4,19 +4,128 @@
  */
 package Commerce;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author DELL
  */
 public class RatingFrm extends javax.swing.JFrame {
+    String order_id;
+    String ave;
+    
+        private void updateRank(){
+        String code = "select p.ID, p.Name, p.rank from Product p, Cart c, OrderI o, FeedBack f where f.Order_ID = o.Order_ID and o.Customer_ID = c.Cart_ID" 
+                ;
+        String up = "update Product set Rank = " + ave +" where ID = ";
+        
+        
+        String connect = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa;encrypt=false;trustServerCertificate=false;";
 
+       try(Connection con = DriverManager.getConnection(connect);Statement stmt = con.createStatement();){
+            ResultSet rs = stmt.executeQuery(code);
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            
+            
+            int numberOfColumns = metaData.getColumnCount();
+                while(rs.next()){
+                
+                int count = 0;
+                for(int i = 1; i <= numberOfColumns; i++){
+                    count ++;
+                    results.append(rs.getObject(i));
+                    
+                }               
+                
+                if(count == 1) break;
+            }
+                rs.close();
+        }catch(SQLException e){
+            
+        }finally{
+           
+       }
+        }
+        private int checkID_FeedBack(String table){
+        
+        int res = 0;
+        String code = "SELECT ID FROM " + table +" ORDER BY ID DESC;" ;
+        //System.out.println(code);
+
+        String connect = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa;encrypt=false;trustServerCertificate=false;";
+
+       try(Connection con = DriverManager.getConnection(connect);Statement stmt = con.createStatement();){
+            ResultSet rs = stmt.executeQuery(code);
+            StringBuilder results = new StringBuilder();
+            ResultSetMetaData metaData = rs.getMetaData();
+            
+            
+            int numberOfColumns = metaData.getColumnCount();
+                while(rs.next()){
+                res++;
+                int count = 0;
+                for(int i = 1; i <= numberOfColumns; i++){
+                    count ++;
+                    results.append(rs.getObject(i));
+                    if(count == 1)break;
+                }
+                //System.out.println(results);
+                
+                res  = Integer.parseInt(results.toString());
+                if(count == 1) break;
+            }
+                rs.close();
+        }catch(SQLException e){
+            
+        }finally{
+           
+       }
+
+       return res;
+    }
     /**
      * Creates new form Review
      */
+    public int score = 0;
     public RatingFrm() {
         initComponents();
     }
+    
+    private void feedback(){
+        
+            String feedback_id = 1 + checkID_FeedBack("FeedBack") + "";
+            //System.out.println(feedback_id);
+             order_id = PaymentFrm.temporary +"";
+            String customer_id = Main.USERS_ID + "";
+            String rating = score + "";
 
+            String code = "INSERT INTO FeedBack(FeedBack_ID, Order_ID, Customer_FeedBack_ID, Rating_Score) VALUES ("
+                + feedback_id  + "," + order_id + "," + customer_id + "," + rating
+                +")";
+            
+        
+        System.out.println(code);
+
+        String connect = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa;encrypt=false;trustServerCertificate=false;";
+
+       try{
+           Connection con = DriverManager.getConnection(connect);
+           PreparedStatement stmt = con.prepareStatement(code);
+           stmt.executeUpdate();
+            
+      
+        }catch(SQLException e){
+        } 
+
+       System.out.println(code);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,11 +137,11 @@ public class RatingFrm extends javax.swing.JFrame {
 
         VotingBtnGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        rank1 = new javax.swing.JRadioButton();
-        rank2 = new javax.swing.JRadioButton();
-        rank3 = new javax.swing.JRadioButton();
-        rank4 = new javax.swing.JRadioButton();
-        rank5 = new javax.swing.JRadioButton();
+        s1 = new javax.swing.JRadioButton();
+        s2 = new javax.swing.JRadioButton();
+        s3 = new javax.swing.JRadioButton();
+        s4 = new javax.swing.JRadioButton();
+        s5 = new javax.swing.JRadioButton();
         submitBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
@@ -40,26 +149,26 @@ public class RatingFrm extends javax.swing.JFrame {
 
         jLabel1.setText("Review Form");
 
-        VotingBtnGroup.add(rank1);
-        rank1.setText("1");
-        rank1.addActionListener(new java.awt.event.ActionListener() {
+        VotingBtnGroup.add(s1);
+        s1.setText("1");
+        s1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rank1ActionPerformed(evt);
+                s1ActionPerformed(evt);
             }
         });
 
-        VotingBtnGroup.add(rank2);
-        rank2.setText("2");
+        VotingBtnGroup.add(s2);
+        s2.setText("2");
 
-        VotingBtnGroup.add(rank3);
-        rank3.setText("3");
+        VotingBtnGroup.add(s3);
+        s3.setText("3");
 
-        VotingBtnGroup.add(rank4);
-        rank4.setText("4");
+        VotingBtnGroup.add(s4);
+        s4.setText("4");
 
-        VotingBtnGroup.add(rank5);
-        rank5.setText("5");
-        rank5.setToolTipText("");
+        VotingBtnGroup.add(s5);
+        s5.setText("5");
+        s5.setToolTipText("");
 
         submitBtn.setText("Vote");
         submitBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -90,15 +199,15 @@ public class RatingFrm extends javax.swing.JFrame {
                                     .addComponent(submitBtn)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(62, 62, 62)
-                                .addComponent(rank1)
+                                .addComponent(s1)
                                 .addGap(40, 40, 40)
-                                .addComponent(rank2)
+                                .addComponent(s2)
                                 .addGap(50, 50, 50)
-                                .addComponent(rank3)
+                                .addComponent(s3)
                                 .addGap(48, 48, 48)
-                                .addComponent(rank4)
+                                .addComponent(s4)
                                 .addGap(42, 42, 42)
-                                .addComponent(rank5)))
+                                .addComponent(s5)))
                         .addGap(0, 75, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -112,11 +221,11 @@ public class RatingFrm extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rank1)
-                    .addComponent(rank2)
-                    .addComponent(rank3)
-                    .addComponent(rank4)
-                    .addComponent(rank5))
+                    .addComponent(s1)
+                    .addComponent(s2)
+                    .addComponent(s3)
+                    .addComponent(s4)
+                    .addComponent(s5))
                 .addGap(34, 34, 34)
                 .addComponent(submitBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
@@ -127,12 +236,21 @@ public class RatingFrm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rank1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rank1ActionPerformed
+    private void s1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rank1ActionPerformed
+    }//GEN-LAST:event_s1ActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
+        if(s1.isSelected())score = 1;else
+        if(s2.isSelected())score = 2;else
+        if(s3.isSelected())score = 3;else
+        if(s4.isSelected())score = 4;else
+        if(s5.isSelected())score = 5;
+        if(score != 0){
+            feedback();
+            updateRank();
+        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -179,11 +297,11 @@ public class RatingFrm extends javax.swing.JFrame {
     private javax.swing.ButtonGroup VotingBtnGroup;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton rank1;
-    private javax.swing.JRadioButton rank2;
-    private javax.swing.JRadioButton rank3;
-    private javax.swing.JRadioButton rank4;
-    private javax.swing.JRadioButton rank5;
+    private javax.swing.JRadioButton s1;
+    private javax.swing.JRadioButton s2;
+    private javax.swing.JRadioButton s3;
+    private javax.swing.JRadioButton s4;
+    private javax.swing.JRadioButton s5;
     private javax.swing.JButton submitBtn;
     // End of variables declaration//GEN-END:variables
 }

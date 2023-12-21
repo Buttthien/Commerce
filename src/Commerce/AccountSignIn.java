@@ -310,7 +310,6 @@ public class AccountSignIn extends javax.swing.JFrame {
                 pass_OK = true;
 
                         Main.USERS_ID = Integer.parseInt(AccountSignIn.tempo);
-
             }
             else 
                 pass_OK = false;
@@ -322,7 +321,7 @@ public class AccountSignIn extends javax.swing.JFrame {
             Main.USERNAME_STATEMENT = "User:" + userTMP;
             Main.user = userTMP;
             if( checkExistence("Supplier_ID", "Supplier", tempo) == true) {
-                //name = Main.USERNAME_STATEMENT;
+
                 Main.Function_Account = true;
                 System.out.println(1);
                 
@@ -331,10 +330,7 @@ public class AccountSignIn extends javax.swing.JFrame {
                 Main.Function_Account = false;
                 System.out.println(11);
             }
-            //int n = Integer.parseInt(tempo);
-            //Main.USER_ID_SIGN_UP = n;
-            //System.out.println(n);
-            //productFrm.usernameSTATUS.setText( Main.USERNAME_STATEMENT);
+
             JOptionPane.showMessageDialog(null, "Sign in succeed!", "Message", JOptionPane.INFORMATION_MESSAGE);
             
             user_OK = false;

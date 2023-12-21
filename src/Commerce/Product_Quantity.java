@@ -36,8 +36,7 @@ public class Product_Quantity extends javax.swing.JFrame {
             String code = "UPDATE Product SET Remaining_Quantity = "
                 + afternumber + " WHERE ID = " + productFrm.ID[arrCount] 
                 +";";
-            System.out.println(code);
-        
+            System.out.println(code);       
 
             String connect = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa;encrypt=false;trustServerCertificate=false;";
 
@@ -45,8 +44,6 @@ public class Product_Quantity extends javax.swing.JFrame {
            Connection con = DriverManager.getConnection(connect);
            PreparedStatement stmt = con.prepareStatement(code);
            stmt.executeUpdate();
-           //PreparedStatement stm = con.prepareStatement();
-           //stm.executeUpdate();
 
            
            

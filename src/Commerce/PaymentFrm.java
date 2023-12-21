@@ -28,12 +28,9 @@ public class PaymentFrm extends javax.swing.JFrame {
     public PaymentFrm() {
         initComponents();
         connect();
-//       
-        
-        
+ 
         SetPaymentInfo();
-////    ShowMessage("he");
-////        
+
     }
 
 //    
@@ -42,6 +39,7 @@ public class PaymentFrm extends javax.swing.JFrame {
     Statement stmt;
     
     int sum;
+    public static int temporary;
     List<Integer> productList;
     List<Integer> buyQuantityList;
     List<Integer> priceList;
@@ -80,15 +78,12 @@ public class PaymentFrm extends javax.swing.JFrame {
         this.supplierList = new ArrayList<Integer>();
         this.buyQuantityList = new ArrayList<Integer>();
         this.sum = 0;
-        
-        //" + Main.USERS_ID + "
-        String getPriceCode = "select Name, Product.ID, Price, Quantity_in_Queue, Remaining_Quantity, Supplier_Customer_ID  from Product, Cart where (Cart_ID = " + Main.USERS_ID + " and Cart.Product_ID = Product.ID);";
+        String getPriceCode = "select Name, Product.ID, Price, Quantity_in_Queue, Remaining_Quantity, Supplier_Customer_ID  from Product, Cart where (Cart_ID = " 
+                + Main.USERS_ID + " and Cart.Product_ID = Product.ID);";
         String getUserInfoCode = "select User_Name, Wallet from Account where (ID = " + Main.USERS_ID + ");";
         String getProductCode = "select Name, Quantity_in_Queue from Product, Cart where (Cart_ID = " + Main.USERS_ID + " and Cart.Product_ID = Product.ID);";
-        //String getSupplierBalance = "select Wallet from Account where (ID = " + this.supplierList[i] + ")";
-        
+           
         try{
-
             rs = stmt.executeQuery(getPriceCode);
             
             while(rs.next()){
@@ -102,10 +97,7 @@ public class PaymentFrm extends javax.swing.JFrame {
                     this.productName = rs.getString("Name");
                     this.productIsAvailable = false;
                 }
-
-            }
-            
-            
+            }           
             rs = stmt.executeQuery(getUserInfoCode);
 
             while(rs.next()){
@@ -123,17 +115,7 @@ public class PaymentFrm extends javax.swing.JFrame {
                 }
                 this.productDisplayList.append("\n");
             }
-//            
-//            rs = stmt.executeQuery(getStockQuantityCode);
-//
-//            while(rs.next()){
-//                if (rs.getInt("Quantity_in_Queue") > rs.getInt("Remaining_Quantity")){
-//                    this.productName = rs.getString("Name");
-//                    this.productIsAvailable = false;
-//                    break;
-//                }
-//            }
-            
+
         }catch (SQLException ex) {
             
         }
@@ -167,8 +149,8 @@ public class PaymentFrm extends javax.swing.JFrame {
         return res;
     }
     public void addOrder(){
-       int tem = 1 + countOrder();
-       String tmp = tem + "";
+       temporary = 1 + countOrder();
+       String tmp = temporary + "";
        
         String code = "INSERT INTO OrderI (Order_ID,Customer_ID, total_bill)"
                 + " VALUES( " + tmp + "," + Main.USERS_ID +"," + this.sum + ");";
@@ -398,12 +380,7 @@ public class PaymentFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyBtnActionPerformed
-        // TODO add your handling code here:
-//        System.out.println(Main.USERS_ID == 0);
-//        System.out.println(this.productList.length() == 0);
-//        System.out.println(this.productIsAvailable == false);
-//        System.out.println(this.balance < this.sum);
-        //" + (this.balance - this.sum) + "
+
         String updateCustomerBalance = "update Account set Wallet = " + (this.balance - this.sum) + " where (ID = " + Main.USERS_ID + ");";
          
 
@@ -444,21 +421,21 @@ public class PaymentFrm extends javax.swing.JFrame {
                     }
                     
                     //" + (supplierBalance + this.priceList.get(i)) + "
-                    String updateSupplierBalance = "update Account set Wallet = " + (supplierBalance + this.priceList.get(i)) + " where (ID = " + this.supplierList.get(i) + ");";
-                    String updateProductStock = "update Product set Remaining_Quantity = " + (productStockQuantity - this.buyQuantityList.get(i)) + " where (ID = " + this.productList.get(i) + ");";
+                    String updateSupplierBalance = "update Account set Wallet = " + (supplierBalance + this.priceList.get(i)) +
+                            " where (ID = " + this.supplierList.get(i) + ");";
+                    String updateProductStock = "update Product set Remaining_Quantity = " + (productStockQuantity - this.buyQuantityList.get(i)) +
+                            " where (ID = " + this.productList.get(i) + ");";
                     
                     Statement stmt = con.createStatement();
                     
                     stmt.executeUpdate(updateSupplierBalance);
-                    stmt.executeUpdate(updateProductStock);
-
-                    
-                    
+                    stmt.executeUpdate(updateProductStock);     
                 }
             }catch(SQLException e){
             } 
             SetPaymentInfo();
             JOptionPane.showMessageDialog(rootPane, "Payment succesful");
+            
             addOrder();
             addPayment();
             

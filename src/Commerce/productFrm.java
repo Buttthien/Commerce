@@ -46,8 +46,6 @@ public class productFrm extends javax.swing.JFrame {
         connect();
         this.Num = Math.max(checkCountNum("Cart"), Num);
     }
-    
-    
         private int checkCountNum(String table){
         
         int res = 0;
@@ -59,8 +57,7 @@ public class productFrm extends javax.swing.JFrame {
        try(Connection con = DriverManager.getConnection(connect);Statement stmt = con.createStatement();){
             ResultSet rs = stmt.executeQuery(code);
             StringBuilder results = new StringBuilder();
-            ResultSetMetaData metaData = rs.getMetaData();
-            
+            ResultSetMetaData metaData = rs.getMetaData();          
             
             int numberOfColumns = metaData.getColumnCount();
                 while(rs.next()){
@@ -71,8 +68,6 @@ public class productFrm extends javax.swing.JFrame {
                     results.append(rs.getObject(i));
                     if(count == 1)break;
                 }
-                //System.out.println(results);
-                
                 res  = Integer.parseInt(results.toString());
                 if(count == 1) break;
             }
@@ -658,7 +653,8 @@ public class productFrm extends javax.swing.JFrame {
             if(minPrice.getText().length() > 0 && maxPrice.getText().isEmpty()){
                 try{
             int value1 = Integer.parseInt(minPrice.getText());
-            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price >= "+value1+" and Name like '%"+tmp+"%'";
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price >= "+value1+
+                    " and Name like '%"+tmp+"%'";
             pst = conn.prepareStatement(SQL);
             rs = pst.executeQuery();
             StringBuilder results = new StringBuilder();
@@ -690,7 +686,8 @@ public class productFrm extends javax.swing.JFrame {
                 try{
             int value1 = Integer.parseInt(minPrice.getText());
             int value2 = Integer.parseInt(maxPrice.getText());
-            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price between '"+value1+"' and '"+value2+"' and Name like '%"+tmp+"%'";
+            String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price between '"+value1+
+                    "' and '"+value2+"' and Name like '%"+tmp+"%'";
             pst = conn.prepareStatement(SQL);
             rs = pst.executeQuery();
             StringBuilder results = new StringBuilder();

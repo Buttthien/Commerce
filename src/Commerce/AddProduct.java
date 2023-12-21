@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -52,7 +52,7 @@ public class AddProduct extends javax.swing.JFrame {
                     results.append(rs.getObject(i));
                     if(count == 1)break;
                 }
-                //System.out.println(results);
+
                 
                 res  = Integer.parseInt(results.toString());
                 if(count == 1) break;

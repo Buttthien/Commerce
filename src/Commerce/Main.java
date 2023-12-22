@@ -23,20 +23,18 @@ package Commerce;
  * @author Admin
  */
 public class Main {
-    /*
-    public void close(){
-        WindowEvent closeW = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeW);
-    }
-    */
+    
+    public static boolean Function_Account;
+    
+    public static boolean Status_Username_ON = false;
+    public static String USERNAME_STATEMENT = "User:";
+    public static String user;
+    public static int USERS_ID;
+    
 
     public static void main(String[] args) {
-       
-    // FrameMain
-    // FrameMain app = new FrameMain():
-    // app.setVisibile(true);
         
-    AccountSignIn signin = new AccountSignIn();
-    signin.setVisible(true);
-}
+        productFrm jj = new productFrm();
+        jj.setVisible(true);
+    }
 }

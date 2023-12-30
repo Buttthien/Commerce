@@ -44,37 +44,22 @@ public class productFrm extends javax.swing.JFrame {
     public productFrm() {
         initComponents();
         connect();
-        this.Num = Math.max(checkCountNum("Cart"), Num);
+        this.Num = checkCountNum("Cart");
     }
     
     
         private int checkCountNum(String table){
         
         int res = 0;
-        String code = "SELECT ID FROM " + table +" ORDER BY ID DESC;" ;
-        System.out.println(code);
+        String code = "SELECT * FROM " + table +";" ;
+        //System.out.println(code);
 
         String connect = "jdbc:sqlserver://localhost:1433;databaseName=Commerce;user=sa;password=sa;encrypt=false;trustServerCertificate=false;";
 
        try(Connection con = DriverManager.getConnection(connect);Statement stmt = con.createStatement();){
             ResultSet rs = stmt.executeQuery(code);
-            StringBuilder results = new StringBuilder();
-            ResultSetMetaData metaData = rs.getMetaData();
-            
-            
-            int numberOfColumns = metaData.getColumnCount();
                 while(rs.next()){
                 res++;
-                int count = 0;
-                for(int i = 1; i <= numberOfColumns; i++){
-                    count ++;
-                    results.append(rs.getObject(i));
-                    if(count == 1)break;
-                }
-                //System.out.println(results);
-                
-                res  = Integer.parseInt(results.toString());
-                if(count == 1) break;
             }
                 rs.close();
         }catch(SQLException e){
@@ -83,7 +68,7 @@ public class productFrm extends javax.swing.JFrame {
            
        }
       
-       System.out.println(res);
+       //System.out.println(res);
        return res;
     }
         
@@ -398,8 +383,6 @@ public class productFrm extends javax.swing.JFrame {
 
         usernameField.setText("Username");
         usernameField.setEditable(false);
-        usernameField.setHighlighter(null);
-        usernameField.setFocusable(false);
         usernameField.setBorder(null);
         usernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -572,8 +555,8 @@ public class productFrm extends javax.swing.JFrame {
      // TODO add your handling code here:
      //get text from search bar and write sql query, if null then false
     int rows = 0;
-        String tmp = jTextField1.getText();
-        if(!tmp.trim().isEmpty()){
+        String tmp = jTextField1.getText().trim();
+        if(!tmp.isEmpty()){
             if(minPrice.getText().isEmpty() && maxPrice.getText().isEmpty()){
                 try{
             String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Name like '%"+tmp+"%'";
@@ -587,7 +570,10 @@ public class productFrm extends javax.swing.JFrame {
             }
             results.append("\n");
             //  Metadata
-            while (rs.next()) {
+            if(!rs.next()){
+                throw new SQLException();
+            } else {   
+                do{
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
@@ -597,11 +583,12 @@ public class productFrm extends javax.swing.JFrame {
                     Name[rows] = rs.getString(4);
                 rows++;
                 results.append("\n");
-            }
+            } while (rs.next());
             productDisplay.setText(results.toString());
+            }
         } // Handle any errors that may have occurred.
             catch (SQLException e) {            
-                productDisplay.setText(e.getMessage());
+                productDisplay.setText("We cannot find any results related to "+tmp+"");
             }
             }
             if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){
@@ -609,7 +596,6 @@ public class productFrm extends javax.swing.JFrame {
             int value2 = Integer.parseInt(maxPrice.getText());
             String SQL = "select ID as Product_ID, Remaining_Quantity AS In_stock, Price, Name as Product_name from Product where Price <= "+value2+" and Name like '%"+tmp+"%'";
             pst = conn.prepareStatement(SQL);
-            rs = pst.executeQuery();
             StringBuilder results = new StringBuilder();
             ResultSetMetaData metaData = rs.getMetaData();
             int numberOfColumns = metaData.getColumnCount();
@@ -618,7 +604,10 @@ public class productFrm extends javax.swing.JFrame {
             }
             results.append("\n");
             //  Metadata
-            while (rs.next()) {
+            if(!rs.next()){
+                throw new SQLException();
+            } else {   
+                do{
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
@@ -628,11 +617,12 @@ public class productFrm extends javax.swing.JFrame {
                     Name[rows] = rs.getString(4);
                 rows++;
                 results.append("\n");
-            }
+            } while (rs.next());
             productDisplay.setText(results.toString());
+            }
         } // Handle any errors that may have occurred.
             catch (SQLException e) {            
-                productDisplay.setText(e.getMessage());
+                productDisplay.setText("We cannot find any results related to "+tmp+"");
             }
             }
             if(minPrice.getText().length() > 0 && maxPrice.getText().isEmpty()){
@@ -649,7 +639,10 @@ public class productFrm extends javax.swing.JFrame {
             }
             results.append("\n");
             //  Metadata
-            while (rs.next()) {
+            if(!rs.next()){
+                throw new SQLException();
+            } else {   
+                do{
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
@@ -659,11 +652,12 @@ public class productFrm extends javax.swing.JFrame {
                     Name[rows] = rs.getString(4);
                 rows++;
                 results.append("\n");
-            }
+            } while (rs.next());
             productDisplay.setText(results.toString());
+            }
         } // Handle any errors that may have occurred.
             catch (SQLException e) {            
-                productDisplay.setText(e.getMessage());
+                productDisplay.setText("We cannot find any results related to "+tmp+"");
             }
             }
             if(minPrice.getText().length() > 0 && maxPrice.getText().length() > 0) {
@@ -681,7 +675,10 @@ public class productFrm extends javax.swing.JFrame {
             }
             results.append("\n");
             //  Metadata
-            while (rs.next()) {
+            if(!rs.next()){
+                throw new SQLException();
+            } else {   
+                do{
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
@@ -691,15 +688,16 @@ public class productFrm extends javax.swing.JFrame {
                     Name[rows] = rs.getString(4);
                 rows++;
                 results.append("\n");
-            }
+            } while (rs.next());
             productDisplay.setText(results.toString());
+            }
         } // Handle any errors that may have occurred.
             catch (SQLException e) {            
-                productDisplay.setText(e.getMessage());
+                productDisplay.setText("We cannot find any results related to "+tmp+"");
             }
             }
         }
-        if(tmp.trim().isEmpty()){
+        if(tmp.isEmpty()){
             if(minPrice.getText().length() > 0 && maxPrice.getText().length() > 0){
                 try{
             int value1 = Integer.parseInt(minPrice.getText());
@@ -715,7 +713,10 @@ public class productFrm extends javax.swing.JFrame {
             }
             results.append("\n");
             //  Metadata
-            while (rs.next()) {
+            if(!rs.next()){
+                throw new SQLException();
+            } else {   
+                do{
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
@@ -725,11 +726,12 @@ public class productFrm extends javax.swing.JFrame {
                     Name[rows] = rs.getString(4);
                 rows++;
                 results.append("\n");
-            }
+            } while (rs.next());
             productDisplay.setText(results.toString());
+            }
         } // Handle any errors that may have occurred.
             catch (SQLException e) {            
-                productDisplay.setText(e.getMessage());
+                productDisplay.setText("We cannot find any matching results within your price range");
             }
             }
             if(minPrice.getText().isEmpty() && maxPrice.getText().length() > 0){          
@@ -746,7 +748,10 @@ public class productFrm extends javax.swing.JFrame {
             }
             results.append("\n");
             //  Metadata
-            while (rs.next()) {
+            if(!rs.next()){
+                throw new SQLException();
+            } else {   
+                do{
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
@@ -756,11 +761,12 @@ public class productFrm extends javax.swing.JFrame {
                     Name[rows] = rs.getString(4);
                 rows++;
                 results.append("\n");
-            }
+            } while (rs.next());
             productDisplay.setText(results.toString());
+            }
         } // Handle any errors that may have occurred.
             catch (SQLException e) {            
-                productDisplay.setText(e.getMessage());
+                productDisplay.setText("We cannot find any matching results within your price range");
             }
             }   
             if(minPrice.getText().length() > 0 && maxPrice.getText().isEmpty()){
@@ -778,7 +784,10 @@ public class productFrm extends javax.swing.JFrame {
             }
             results.append("\n");
             //  Metadata
-            while (rs.next()) {
+            if(!rs.next()){
+                throw new SQLException();
+            } else {   
+                do{
                 for (int i = 1; i <= numberOfColumns; i++) {
                     results.append(rs.getObject(i)).append("\t");
                 }
@@ -788,18 +797,19 @@ public class productFrm extends javax.swing.JFrame {
                     Name[rows] = rs.getString(4);
                 rows++;
                 results.append("\n");
-            }
+            } while (rs.next());
             productDisplay.setText(results.toString());
+            }
         } // Handle any errors that may have occurred.
             catch (SQLException e) {            
-                productDisplay.setText(e.getMessage());
+                productDisplay.setText("We cannot find any matching results within your price range");
             }
             }
         }
         if(tmp.trim().isEmpty() && minPrice.getText().isEmpty() && maxPrice.getText().isEmpty()){
             productDisplay.selectAll();
             productDisplay.replaceSelection("");
-//            Details.setVisible(false);
+//          Details.setVisible(false);
         }
         rowCount = rows;
         if(rows == 0){
@@ -834,6 +844,7 @@ public class productFrm extends javax.swing.JFrame {
     private void DetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetailsActionPerformed
         // TODO add your handling code here:
         arrCount = 0;
+        ProductDetails_Popup.setVisible(true);
         try{
             for(int i = 0; i < rowCount; i++){
             String SQL = "select Image_Decription from Product where ID = '"+ID[i]+"'";
@@ -855,7 +866,6 @@ public class productFrm extends javax.swing.JFrame {
            Quantity_Display.setText(Quant[arrCount]);
            Price_Display.setText(Price[arrCount]);
            IMG_Display.setIcon(Img[arrCount]);
-           ProductDetails_Popup.setVisible(true);
     }//GEN-LAST:event_DetailsActionPerformed
 
     private void ForwardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForwardBtnActionPerformed
@@ -886,7 +896,7 @@ public class productFrm extends javax.swing.JFrame {
 
     private void AddToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddToCartBtnActionPerformed
         // TODO add your handling code here:
-        //Num ++;
+        Num ++;
          id = Num +"";
         
         //chosen_number = 0;
